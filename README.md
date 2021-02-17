@@ -1,20 +1,5 @@
 # Countdown
 
-## Improved countdown
-The below component was designed to count down the days until our CTO's birthday, but it still needs some work. How can you make the implementation better?
-
-**Do a critique:** The current implementation isn't perfect. How could it be improved?
-
-* Pick an area of improvement to implement.
-* What would happen to the current code if the date were changed, the page layout was changed or the format was changed?
-* Does the current implementation follow best practices for HTML, CSS, JS and React?
-
-**Spice it up:** Let's be honest, this countdown could be a whole lot more exciting.
-
-* What could you do to create a greater sense of urgency?
-* How would you make this countdown more aesthetically pleasing?
-* Trust your design instincts, and explain how your design choices impact the user experience
-
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
