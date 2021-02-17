@@ -28,7 +28,6 @@ class Countdown extends React.Component {
     let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
 
     const timeLeft = {
-      years: 0,
       days: 0,
       hours: 0,
       min: 0,
@@ -36,11 +35,13 @@ class Countdown extends React.Component {
       millisec: 0,
     };
 
+    // birthday is each year, so removing check for year
+    // could have added hooks but for such a small application it is not really necessary
+    // can use a table of data to show counter for various birthdays and send out an email to co-workers when someone's birthday is a day away
+    // did not make much changes but changed around the styling and templating a bit
+
     // calculate time difference between now and expected date
-    if (diff >= (365.25 * 86400)) { // 365.25 * 24 * 60 * 60
-      timeLeft.years = Math.floor(diff / (365.25 * 86400));
-      diff -= timeLeft.years * 365.25 * 86400;
-    }
+
     if (diff >= 86400) { // 24 * 60 * 60
       timeLeft.days = Math.floor(diff / 86400);
       diff -= timeLeft.days * 86400;
@@ -54,6 +55,10 @@ class Countdown extends React.Component {
       diff -= timeLeft.min * 60;
     }
     timeLeft.sec = diff;
+
+    if (diff < 0) {
+      this.stop();
+    }
 
     return timeLeft;
   }
@@ -72,29 +77,46 @@ class Countdown extends React.Component {
 
   render() {
     const countDown = this.state;
-
+    if (this.timeLeft != 0) 
     return (
-      <div className="Countdown">
-        <span className="countdown-col">
+    <div class="wrapper">
+      <div id="countdown">
+        <div class="cd-box">
+          <p class="numbers days">
           <strong>{this.addLeadingZeros(countDown.days)}</strong>
-          <span>{countDown.days === 1 ? 'Day' : 'Days'}</span>
-        </span>
-
-        <span className="countdown-col">
-          <strong>{this.addLeadingZeros(countDown.hours)}</strong>
-          <span>Hours</span>
-        </span>
-
-        <span className="countdown-col">
-          <strong>{this.addLeadingZeros(countDown.min)}</strong>
-          <span>Min</span>
-        </span>
-
-        <span className="countdown-col">
-          <strong>{this.addLeadingZeros(countDown.sec)}</strong>
-          <span>Sec</span>
-        </span>
+          </p>
+          <p class="strings timeRefDays">
+            {countDown.days === 1 ? 'Day' : 'Days'}
+          </p>
+        </div>
+        <div class="cd-box">
+          <p class="numbers hours">
+            {this.addLeadingZeros(countDown.hours)}
+          </p>
+          <p class="strings timeRefHours">Hours</p>
+        </div>
+        <div class="cd-box">
+          <p class="numbers minutes">
+            {this.addLeadingZeros(countDown.min)}
+          </p>
+          <p class="strings timeRefMinutes">Minutes</p>
+        </div>
+        <div class="cd-box">
+          <p class="numbers seconds">
+            {this.addLeadingZeros(countDown.sec)}
+          </p>
+          <p class="strings timeRefSeconds">Seconds</p>
+        </div>
       </div>
+    </div>
+    );
+    return (
+        <div>
+          <span className="wrapper">
+            <strong>{this.timeLeft === 0}</strong>
+            <span>It's your Birthday - Happy Birthday!</span>
+          </span>
+        </div>
     );
   }
 }
